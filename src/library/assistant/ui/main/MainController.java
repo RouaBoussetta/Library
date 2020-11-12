@@ -38,6 +38,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import library.assistant.ui.main.toolbar.ToolbarController;
 
 import library.assistant.util.LibraryAssistantUtil;
 
@@ -121,9 +122,9 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         databaseHandler = DataBase.getInstance();
-/*
+
         initDrawer();
-        initGraphs();*/
+       /* initGraphs();*/
         initComponents();
     }
 
@@ -433,14 +434,14 @@ public class MainController implements Initializable {
         Stage stage = getStage();
         stage.setFullScreen(!stage.isFullScreen());
     }
-
+*/
     private void initDrawer() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/library/assistant/ui/main/toolbar/toolbar.fxml"));
             VBox toolbar = loader.load();
             drawer.setSidePane(toolbar);
             ToolbarController controller = loader.getController();
-            controller.setBookReturnCallback(this);
+           // controller.setBookReturnCallback(this);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -496,9 +497,9 @@ public class MainController implements Initializable {
         bookStatus.setText("");
         memberMobile.setText("");
         memberName.setText("");
-        enableDisableGraph(true);
+       // enableDisableGraph(true);
     }
-
+/*
     private void initGraphs() {
         bookChart = new PieChart(databaseHandler.getBookGraphStatistics());
         memberChart = new PieChart(databaseHandler.getMemberGraphStatistics());
