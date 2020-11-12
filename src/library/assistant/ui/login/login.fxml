@@ -26,7 +26,7 @@
             <Font size="17.0" />
          </font>
       </JFXPasswordField>
-       <Label fx:id="register" layoutX="163.0" layoutY="247.0"  onMouseClicked="#createAccountAction" prefHeight="17.0" prefWidth="124.0" text="Create an account" textFill="WHITE">
+       <Label fx:id="register" layoutX="163.0" layoutY="247.0" onMouseClicked="#createAccountAction" prefHeight="17.0" prefWidth="124.0" text="Create an account" textFill="WHITE">
          <effect>
          </effect>
          <font>

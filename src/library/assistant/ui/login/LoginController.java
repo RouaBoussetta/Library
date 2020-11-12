@@ -3,7 +3,6 @@ package library.assistant.ui.login;
 import Utils.DataBase;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import java.awt.Label;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -20,7 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.swing.JOptionPane;
@@ -184,13 +182,6 @@ public class LoginController implements Initializable {
 
     void loadRegister() {
         try {
-            
-            
-     
-     
-            
-            
-            
             Parent parent = FXMLLoader.load(getClass().getResource("/library/assistant/ui/register/register.fxml"));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Register");
@@ -205,7 +196,7 @@ public class LoginController implements Initializable {
     @FXML
     private void createAccountAction(MouseEvent event) {
          closeStage();
-                    loadRegister();
+         loadRegister();
         
     }
 
