@@ -113,14 +113,14 @@ public class RegisterController implements Initializable {
     @FXML
     private void handleRegisterButtonAction(ActionEvent event) throws SQLException {
         if (this.validateForm()) {
-            preparedStatement = connection.prepareStatement("select * from user where usermail =  ? ");
+            preparedStatement = connection.prepareStatement("select * from admin where usermail =  ? ");
 
             preparedStatement.setString(1, email.getText());
 
             if (!preparedStatement.executeQuery().next()) {
 
                 try {
-                    String sql = "INSERT INTO `user` ( username, lastname,pseudoname,usermail,userpassword,"
+                    String sql = "INSERT INTO `admin` ( username, lastname,pseudoname,usermail,userpassword,"
                             + "roles,userimage) VALUES (?, ?, ?, ?, ?,?,?)";
                     User user = new User();
                     preparedStatement = connection.prepareStatement(sql);

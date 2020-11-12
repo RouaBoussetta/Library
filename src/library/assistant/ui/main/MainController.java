@@ -608,9 +608,7 @@ public class MainController implements Initializable {
     private void handleMenuAddBook(ActionEvent event) {
     }
 
-    @FXML
-    private void handleMenuAddMember(ActionEvent event) {
-    }
+  
 
     @FXML
     private void handleMenuViewBook(ActionEvent event) {
@@ -635,5 +633,11 @@ public class MainController implements Initializable {
     @FXML
     private void handleAboutMenu(ActionEvent event) {
     }
+    
+     @FXML
+    private void handleMenuAddMember(ActionEvent event) {
+        LibraryAssistantUtil.loadWindow(getClass().getResource("/library/assistant/ui/addmember/member_add.fxml"), "Add New Member", null);
+    }
+    
 
 }

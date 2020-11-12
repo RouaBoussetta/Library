@@ -5,23 +5,28 @@ package library.assistant.data.model;
  * @author afsal
  */
 public class Member {
-    String id;
+    int id;
     String name;
     String email;
     String mobile;
 
-    public Member(String id, String name, String email, String mobile) {
+    public Member(int id, String name, String email, String mobile) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.mobile = mobile;
     }
     
-    public String getId() {
+        public Member(String name, String email, String mobile) {
+        this.name = name;
+        this.email = email;
+        this.mobile = mobile;
+    }
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

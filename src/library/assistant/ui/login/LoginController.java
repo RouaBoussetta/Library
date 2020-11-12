@@ -90,7 +90,7 @@ public class LoginController implements Initializable {
         String password = userPassword.getText();
         mailandpasswordValidate();
         if (mailandpasswordValidate()) {
-            String sql = "SELECT * FROM user WHERE usermail = ? and userpassword = ?;";
+            String sql = "SELECT * FROM admin WHERE usermail = ? and userpassword = ?;";
 
             try {
                 preparedStatement = connection.prepareStatement(sql);
@@ -105,7 +105,7 @@ public class LoginController implements Initializable {
                     error.setText("");
                     closeStage();
                     loadMain();
-            LOGGER.log(Level.INFO, "User successfully logged in {}", email);
+            LOGGER.log(Level.INFO, "admin successfully logged in {}", email);
 
                 }
             } catch (Exception e) {
