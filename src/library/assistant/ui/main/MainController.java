@@ -29,6 +29,8 @@ import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -38,6 +40,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import library.assistant.data.model.User;
 import library.assistant.ui.main.toolbar.ToolbarController;
 
 import library.assistant.util.LibraryAssistantUtil;
@@ -118,14 +121,44 @@ public class MainController implements Initializable {
     private JFXTabPane mainTabPane;
     @FXML
     private JFXButton btnIssue;
+    @FXML
+    private ImageView profile;
+    public static  User u;
 
-    @Override
     public void initialize(URL url, ResourceBundle rb) {
         databaseHandler = DataBase.getInstance();
+
+       // profile=new ImageView(u.getUserImage());
+
 
         initDrawer();
        /* initGraphs();*/
         initComponents();
+        
+
+//        String source1 = event.getSource().toString(); //yields complete string
+        //String source2 = event.getPickResult().getIntersectedNode().getId(); //returns JUST the id of the object that was clicked
+//        System.out.println("Full String: " + source1);
+//        System.out.println("Just the id: " + source2);
+//        System.out.println(" " + source2);
+/*
+        try {
+
+            String sql = "SELECT name FROM users WHERE name='"+username+"'";
+
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()){
+                tf_getname.setText(rs.getString("name"));
+
+            }
+
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+*/
     }
 
   /*  @FXML
@@ -639,6 +672,8 @@ public class MainController implements Initializable {
     private void handleMenuAddMember(ActionEvent event) {
         LibraryAssistantUtil.loadWindow(getClass().getResource("/library/assistant/ui/addmember/member_add.fxml"), "Add New Member", null);
     }
+
+
     
 
 }

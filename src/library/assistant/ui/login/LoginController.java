@@ -37,6 +37,8 @@ public class LoginController implements Initializable {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     private User loggedUser;
+     
+
 
     @FXML
     private javafx.scene.control.Label error;
@@ -103,6 +105,7 @@ public class LoginController implements Initializable {
                     User user = new User();
                     user.setId(resultSet.getInt("id"));
                     error.setText("");
+                    
                     closeStage();
                     loadMain();
             LOGGER.log(Level.INFO, "admin successfully logged in {}", email);
@@ -174,6 +177,7 @@ public class LoginController implements Initializable {
             stage.setScene(new Scene(parent));
             stage.show();
             LibraryAssistantUtil.setStageIcon(stage);
+            
         } catch (IOException ex) {
             LOGGER.log(Level.ERROR, "{}", ex);
         }

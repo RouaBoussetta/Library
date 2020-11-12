@@ -17,6 +17,8 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+
 
 <StackPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="625.0" prefWidth="1000.0" styleClass="custom-pane" stylesheets="@../../../../resources/dark-theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="library.assistant.ui.main.MainController">
    <children>
@@ -251,8 +253,11 @@
                     <MenuItem mnemonicParsing="false" onAction="#handleAboutMenu" text="About" />
                   </items>
                 </Menu>
+                
+
               </menus>
             </MenuBar>
+
          </children>
       </AnchorPane>
    </children>
