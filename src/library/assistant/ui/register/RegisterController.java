@@ -34,8 +34,6 @@ public class RegisterController implements Initializable {
     private JFXPasswordField password;
     @FXML
     private Label error;
-    @FXML
-    private Label register;
     /**
      * Initializes the controller class.
      */
