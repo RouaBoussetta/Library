@@ -5,6 +5,8 @@
  */
 package library.assistant.ui.register;
 
+import Utils.DataBase;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -18,6 +20,7 @@ import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Base64;
@@ -25,6 +28,9 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,6 +41,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -53,12 +61,14 @@ import org.apache.logging.log4j.Logger;
  * @author Lenovo
  */
 public class RegisterController implements Initializable {
-        private final static Logger LOGGER = LogManager.getLogger(RegisterController.class.getName());
+
+    private final static Logger LOGGER = LogManager.getLogger(RegisterController.class.getName());
     private static RegisterController instance;
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     private User loggedUser;
+
 
     @FXML
     private JFXTextField username;
@@ -75,22 +85,37 @@ public class RegisterController implements Initializable {
     @FXML
     private Label error;
     @FXML
-    private ComboBox<?> role;
+    private ComboBox<String> role;
+    
+       
+    
+            ObservableList<String> value = FXCollections.observableArrayList("MASTER", "DEVELOPER", "PRODUCT_OWNER");
+    @FXML
+    private JFXButton browser;
+
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-/*
+    role.getItems().add("Administrator");
+
+    
+    }
+
+    public RegisterController() throws IOException {
+        connection = DataBase.getInstance().getConnection();
+        // role.setItems(value);
+    }
+
     @FXML
-    private void handleRegisterButtonAction(ActionEvent event) {
+    private void handleRegisterButtonAction(ActionEvent event) throws SQLException {
         if (this.validateForm()) {
             preparedStatement = connection.prepareStatement("select * from user where usermail =  ? ");
 
             preparedStatement.setString(1, email.getText());
-
 
             if (!preparedStatement.executeQuery().next()) {
 
@@ -104,17 +129,14 @@ public class RegisterController implements Initializable {
                     preparedStatement.setString(3, pseudoname.getText());
                     preparedStatement.setString(4, email.getText());
                     preparedStatement.setString(5, password.getText());
-                                      preparedStatement.setString(6, password.getText());
+                    preparedStatement.setString(6, role.getSelectionModel().getSelectedItem());
 
                     preparedStatement.setString(7, image.getText());
-                   
-
-                    
 
                     int n = preparedStatement.executeUpdate();
                     if (n > 0) {
-                       closeStage();
-                    loadLogin();
+                        closeStage();
+                        loadLogin();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -128,27 +150,23 @@ public class RegisterController implements Initializable {
         }
 
     }
-    
-    
-    
-    */
+
     public boolean validateForm() {
         mailValidate();
         RequiredFieldValidator validator = new RequiredFieldValidator();
         validator.setMessage("Input Required");
 
-      /*  if (userCin.getText().toString().length() != 8) {
-            error.setText("cin not valid length 8 number required ");
-            Integer.parseInt(userCin.getText().toString());
+        /*  if (userCin.getText().toString().length() != 8) {
+         error.setText("cin not valid length 8 number required ");
+         Integer.parseInt(userCin.getText().toString());
 
-        }*/
+         }*/
         String str = "^\\s?((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?\\s?";
 
         return true;
     }
 
-     
-      public boolean mailValidate() {
+    public boolean mailValidate() {
         String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regex);
         RequiredFieldValidator validator = new RequiredFieldValidator();//yvalidy mail
@@ -175,53 +193,57 @@ public class RegisterController implements Initializable {
         }
 
     }
-/*
-    public void choose(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
+    
+    
+    /*
+     public void choose(ActionEvent actionEvent) {
+     FileChooser fileChooser = new FileChooser();
 
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("ALL files (*.*)", "*.*");
-        fileChooser.getExtensionFilters().add(extFilter);
+     //Set extension filter
+     FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("ALL files (*.*)", "*.*");
+     fileChooser.getExtensionFilters().add(extFilter);
 
-        //Show open file dialog
-        File file = fileChooser.showOpenDialog(null);
+     //Show open file dialog
+     File file = fileChooser.showOpenDialog(null);
 
-        String pathsInfo = "";
-        pathsInfo += "getPath(): " + file.getPath() + "\n";
-        pathsInfo += "getAbsolutePath(): " + file.getAbsolutePath() + "\n";
+     String pathsInfo = "";
+     pathsInfo += "getPath(): " + file.getPath() + "\n";
+     pathsInfo += "getAbsolutePath(): " + file.getAbsolutePath() + "\n";
 
-        pathsInfo += (new File(file.getPath())).isAbsolute();
+     pathsInfo += (new File(file.getPath())).isAbsolute();
 
-        try {
-            BufferedImage image = ImageIO.read(file);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", baos);
-            byte[] res = baos.toByteArray();
-            String encodedImage = Base64.getEncoder().encodeToString(baos.toByteArray());
-            this.image = encodedImage;
-            Path p = Paths.get(file.getPath());
+     try {
+     BufferedImage image = ImageIO.read(file);
+     ByteArrayOutputStream baos = new ByteArrayOutputStream();
+     ImageIO.write(image, "png", baos);
+     byte[] res = baos.toByteArray();
+     String encodedImage = Base64.getEncoder().encodeToString(baos.toByteArray());
+     this.image = encodedImage;
+     Path p = Paths.get(file.getPath());
 
-            img.setImage(new Image(file.toURI().toURL().toExternalForm()));
+     img.setImage(new Image(file.toURI().toURL().toExternalForm()));
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Some problem has occurred. Please try again");
-        }
+     } catch (Exception e) {
+     e.printStackTrace();
+     System.out.println("Some problem has occurred. Please try again");
+     }
 
         
-    }*/
+     }*/
+
     private void closeStage() {
         ((Stage) username.getScene().getWindow()).close();
     }
+
     @FXML
     private void handleCancelButtonAction(ActionEvent event) {
-           closeStage();
-                    loadLogin();
+        closeStage();
+        loadLogin();
     }
-    
-     void loadLogin() {
+
+    void loadLogin() {
         try {
-           
+
             Parent parent = FXMLLoader.load(getClass().getResource("/library/assistant/ui/login/login.fxml"));
             Stage stage = new Stage(StageStyle.DECORATED);
             stage.setTitle("Library Assistant Login");
@@ -234,11 +256,17 @@ public class RegisterController implements Initializable {
     }
 
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) {
-    }
+    private void handleBrowserButtonAction(ActionEvent event) {
 
-    @FXML
-    private void handleRegisterButtonAction(ActionEvent event) {
+       FileChooser fileChooser = new FileChooser();            
+
+            File file = fileChooser.showOpenDialog(null); 
+                if(file!=null){
+            System.out.println("Path :" +file.getAbsolutePath());
+            image.setText(file.getAbsolutePath());
+            
+        }
+           
+
     }
-    
 }
