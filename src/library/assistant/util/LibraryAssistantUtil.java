@@ -22,7 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import library.MainController;
+import library.assistant.ui.main.MainController;
 
 
 public class LibraryAssistantUtil {

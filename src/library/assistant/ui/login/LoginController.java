@@ -33,12 +33,11 @@ import org.apache.logging.log4j.Logger;
 public class LoginController implements Initializable {
 
     private final static Logger LOGGER = LogManager.getLogger(LoginController.class.getName());
-        private static LoginController instance;
+    private static LoginController instance;
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-      private User loggedUser;
-
+    private User loggedUser;
 
     @FXML
     private javafx.scene.control.Label error;
@@ -47,25 +46,24 @@ public class LoginController implements Initializable {
     private JFXTextField userMail;
     @FXML
     private JFXPasswordField userPassword;
-    
-      public LoginController() throws IOException {
+
+    public LoginController() throws IOException {
         connection = DataBase.getInstance().getConnection();
     }
-    
-     public static LoginController getInstance() {
+
+    public static LoginController getInstance() {
         return instance;
     }
-      public User getLoggedUser() {
+
+    public User getLoggedUser() {
         return loggedUser;
     }
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
     }
-    
-      public boolean mailandpasswordValidate() {
+
+    public boolean mailandpasswordValidate() {
         String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
         Pattern pattern = Pattern.compile(regex);
 
@@ -91,7 +89,7 @@ public class LoginController implements Initializable {
         String password = userPassword.getText();
         mailandpasswordValidate();
         if (mailandpasswordValidate()) {
-            String sql = "SELECT * FROM user WHERE email = ? and user_password = ?;";
+            String sql = "SELECT * FROM user WHERE usermail = ? and userpassword = ?;";
 
             try {
                 preparedStatement = connection.prepareStatement(sql);
@@ -104,8 +102,10 @@ public class LoginController implements Initializable {
                     User user = new User();
                     user.setId(resultSet.getInt("id"));
                     error.setText("");
+                    closeStage();
+                    loadMain();
+            LOGGER.log(Level.INFO, "User successfully logged in {}", email);
 
-                   
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -126,45 +126,44 @@ public class LoginController implements Initializable {
     private void closeStage() {
         ((Stage) userMail.getScene().getWindow()).close();
     }
-    
-   /* 
+
+    /* 
      public void changeScenex(ActionEvent actionEvent) throws IOException {
 
-        Node node = (Node) actionEvent.getSource();
-        Stage dialogStage = (Stage) node.getScene().getWindow();
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/GUI/REGISTER.fxml")));
-        dialogStage.setScene(scene);
-        dialogStage.show();
+     Node node = (Node) actionEvent.getSource();
+     Stage dialogStage = (Stage) node.getScene().getWindow();
+     Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/GUI/REGISTER.fxml")));
+     dialogStage.setScene(scene);
+     dialogStage.show();
 
-    }
+     }
 
-    public void resetPage(MouseEvent actionEvent) throws IOException {
+     public void resetPage(MouseEvent actionEvent) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/resetMail.fxml"));
+     Parent root = FXMLLoader.load(getClass().getResource("/GUI/resetMail.fxml"));
 
-        Scene scene = loginButton.getScene();
+     Scene scene = loginButton.getScene();
 
-        root.translateXProperty().set(scene.getWidth());
+     root.translateXProperty().set(scene.getWidth());
 
-        Pane parentContainer = (Pane) scene.getRoot();
-        parentContainer.getChildren().add(root);
+     Pane parentContainer = (Pane) scene.getRoot();
+     parentContainer.getChildren().add(root);
 
-        Timeline timeline = new Timeline();
-        KeyValue kv = new KeyValue(root.translateXProperty(), 0, Interpolator.EASE_IN);
-        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
-        timeline.getKeyFrames().add(kf);
-        timeline.setOnFinished(event1 -> {
-            parentContainer.getChildren().remove(container);
-        });
-        timeline.play();
+     Timeline timeline = new Timeline();
+     KeyValue kv = new KeyValue(root.translateXProperty(), 0, Interpolator.EASE_IN);
+     KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
+     timeline.getKeyFrames().add(kf);
+     timeline.setOnFinished(event1 -> {
+     parentContainer.getChildren().remove(container);
+     });
+     timeline.play();
 
-    }
-*/
+     }
+     */
     private void infoBox(String infoMessage, String titleBar) {
 
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
-
 
     void loadMain() {
         try {
@@ -174,8 +173,7 @@ public class LoginController implements Initializable {
             stage.setScene(new Scene(parent));
             stage.show();
             LibraryAssistantUtil.setStageIcon(stage);
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             LOGGER.log(Level.ERROR, "{}", ex);
         }
     }

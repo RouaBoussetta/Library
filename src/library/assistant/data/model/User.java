@@ -14,46 +14,34 @@ import java.util.Objects;
  * @author Lenovo
  */
 public class User {
+
     private int id;
-       private String username;
- 
-    private String email;
-    private String password;
-    private String roles;
-    
-    
-    
+
     private String userName;
     private String lastname;
     private String pseudoName;
     private String userMail;
     private String userPassword;
     private String userImage;
+    private String roles;
 
-
-    public User(int id, String username, String email, String password,String roles, String userName, String lastname, String pseudoName, String userMail, String userPassword, String userPhoto) {
+    public User(int id,  String roles, String userName, String lastname, String pseudoName, String userMail, String userPassword, String userImage) {
         this.id = id;
-        this.username = username;
-      
-        this.email = email;
        
-        this.password = password;
-        
+
         this.roles = roles;
         this.userName = userName;
         this.lastname = lastname;
         this.pseudoName = pseudoName;
         this.userMail = userMail;
         this.userPassword = userPassword;
-        this.userImage=userImage;
+        this.userImage = userImage;
     }
 
-                                                                     
- 
-                                                           
-                                                                     
-       public User(){
-       };
+    public User() {
+    }
+
+    ;
 
     public int getId() {
         return id;
@@ -63,29 +51,7 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+   
 
     public String getRoles() {
         return roles;
@@ -145,18 +111,15 @@ public class User {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.username);
-        hash = 97 * hash + Objects.hashCode(this.email);
-        hash = 97 * hash + Objects.hashCode(this.password);
-        hash = 97 * hash + Objects.hashCode(this.roles);
-        hash = 97 * hash + Objects.hashCode(this.userName);
-        hash = 97 * hash + Objects.hashCode(this.lastname);
-        hash = 97 * hash + Objects.hashCode(this.pseudoName);
-        hash = 97 * hash + Objects.hashCode(this.userMail);
-        hash = 97 * hash + Objects.hashCode(this.userPassword);
-        hash = 97 * hash + Objects.hashCode(this.userImage);
+        int hash = 7;
+        hash = 83 * hash + this.id;
+        hash = 83 * hash + Objects.hashCode(this.userName);
+        hash = 83 * hash + Objects.hashCode(this.lastname);
+        hash = 83 * hash + Objects.hashCode(this.pseudoName);
+        hash = 83 * hash + Objects.hashCode(this.userMail);
+        hash = 83 * hash + Objects.hashCode(this.userPassword);
+        hash = 83 * hash + Objects.hashCode(this.userImage);
+        hash = 83 * hash + Objects.hashCode(this.roles);
         return hash;
     }
 
@@ -170,18 +133,6 @@ public class User {
         }
         final User other = (User) obj;
         if (this.id != other.id) {
-            return false;
-        }
-        if (!Objects.equals(this.username, other.username)) {
-            return false;
-        }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
-        if (!Objects.equals(this.password, other.password)) {
-            return false;
-        }
-        if (!Objects.equals(this.roles, other.roles)) {
             return false;
         }
         if (!Objects.equals(this.userName, other.userName)) {
@@ -202,15 +153,12 @@ public class User {
         if (!Objects.equals(this.userImage, other.userImage)) {
             return false;
         }
+        if (!Objects.equals(this.roles, other.roles)) {
+            return false;
+        }
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", roles=" + roles + ", userName=" + userName + ", lastname=" + lastname + ", pseudoName=" + pseudoName + ", userMail=" + userMail + ", userPassword=" + userPassword + ", userImage=" + userImage + '}';
-    }
+   
 
-  
-       
-                                 
 }

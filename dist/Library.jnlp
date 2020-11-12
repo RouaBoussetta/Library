@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Library.jar" size="111912" download="eager" />
+    <jar href="Library.jar" size="117241" download="eager" />
     <jar href="lib\fontawesomefx-commons-8.15.jar" size="20957" download="eager" />
     <jar href="lib\fontawesomefx-fontawesome-4.7.0-5.jar" size="136891" download="eager" />
     <jar href="lib\jfoenix-8.0.4.jar" size="2487326" download="eager" />
@@ -19,6 +19,6 @@
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Library" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="library.Library"  name="Library" />
+  <jfx:javafx-desc  width="800" height="600" main-class="library.assitant.ui.main.Library"  name="Library" />
   <update check="always"/>
 </jnlp>
