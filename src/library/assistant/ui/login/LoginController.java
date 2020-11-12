@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -46,6 +47,8 @@ public class LoginController implements Initializable {
     private JFXTextField userMail;
     @FXML
     private JFXPasswordField userPassword;
+    @FXML
+    private javafx.scene.control.Label register;
 
     public LoginController() throws IOException {
         connection = DataBase.getInstance().getConnection();
@@ -176,6 +179,34 @@ public class LoginController implements Initializable {
         } catch (IOException ex) {
             LOGGER.log(Level.ERROR, "{}", ex);
         }
+    }
+    
+
+    void loadRegister() {
+        try {
+            
+            
+     
+     
+            
+            
+            
+            Parent parent = FXMLLoader.load(getClass().getResource("/library/assistant/ui/register/register.fxml"));
+            Stage stage = new Stage(StageStyle.DECORATED);
+            stage.setTitle("Register");
+            stage.setScene(new Scene(parent));
+            stage.show();
+            LibraryAssistantUtil.setStageIcon(stage);
+        } catch (IOException ex) {
+            LOGGER.log(Level.ERROR, "{}", ex);
+        }
+    }
+
+    @FXML
+    private void createAccountAction(MouseEvent event) {
+         closeStage();
+                    loadRegister();
+        
     }
 
 }
